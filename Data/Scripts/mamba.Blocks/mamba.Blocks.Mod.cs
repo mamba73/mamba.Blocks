@@ -41,6 +41,8 @@ namespace mamba.Blocks
 
                 // Pozivamo GUI inicijalizaciju
                 Gui.SimpleGuiTest.Init();
+                // Gui.StoreBlockAdminGui.Init();
+
 
                 if (MyAPIGateway.Utilities != null)
                 {

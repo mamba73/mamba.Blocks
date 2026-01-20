@@ -1,17 +1,16 @@
-// File: mamba.Blocks/Data/Scripts/mamba.Blocks/Gui/SimpleGuiTest.cs
+// File: mamba.Blocks/Data/Scripts/mamba.Blocks/Gui/StoreBlockAdminGui.cs
 using Sandbox.ModAPI;
 using Sandbox.ModAPI.Interfaces.Terminal;
 using VRage.Game.ModAPI;
-using VRage.Game;
 using VRage.Utils;
 using System;
 
 namespace mamba.Blocks.Gui
 {
-    public static class SimpleGuiTest
+    public static class StoreBlockAdminGui
     {
-        private const string SELL_BUTTON_ID = "Mamba_TestSellGrid";
-        private const string BUY_BUTTON_ID = "Mamba_TestBuyGrid";
+        private const string SELL_BUTTON_ID = "Mamba_AdminSell";
+        private const string BUY_BUTTON_ID = "Mamba_AdminBuy";
 
         private static bool m_initialized = false;
 
@@ -24,7 +23,7 @@ namespace mamba.Blocks.Gui
                 // Gumb: Sell Your Grid
                 var sellButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(SELL_BUTTON_ID);
                 sellButton.Title = MyStringId.GetOrCompute("Sell Your Grid");
-                sellButton.Tooltip = MyStringId.GetOrCompute("Sell your grids - test");
+                sellButton.Tooltip = MyStringId.GetOrCompute("Prodaja gridova");
                 sellButton.Visible = block => block != null && block.BlockDefinition.ToString().Contains("StoreBlockAdmin");
                 sellButton.Action = block =>
                 {
@@ -37,7 +36,7 @@ namespace mamba.Blocks.Gui
                 // Gumb: Buy Grid
                 var buyButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(BUY_BUTTON_ID);
                 buyButton.Title = MyStringId.GetOrCompute("Buy Grid");
-                buyButton.Tooltip = MyStringId.GetOrCompute("Buy grids - test");
+                buyButton.Tooltip = MyStringId.GetOrCompute("Kupnja gridova");
                 buyButton.Visible = block => block != null && block.BlockDefinition.ToString().Contains("StoreBlockAdmin");
                 buyButton.Action = block =>
                 {
@@ -48,7 +47,7 @@ namespace mamba.Blocks.Gui
                 MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(buyButton);
 
                 m_initialized = true;
-                ModCommunication.Log("[DEBUG mamba] SimpleGuiTest initialized - buttons added to K tab");
+                ModCommunication.Log("[DEBUG mamba] Admin StoreBlock GUI initialized - buttons added to K tab");
             }
             catch (Exception e)
             {
