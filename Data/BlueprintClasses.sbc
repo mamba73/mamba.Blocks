@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <BlueprintClassEntries>
+    
+    <!-- LargeBlocks -->
+    <!-- Cargo -->
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="CargoContainer/LargeCargoContainerMK1" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="CargoContainer/LargeCargoContainerMK2" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="CargoContainer/LargeCargoContainerMK3" />
+
+    <!-- Production -->
+    <!-- <Entry Class="LargeBlocks" BlueprintSubtypeId="Refinery/LargeRefineryMK1" /> -->
+    <!-- <Entry Class="LargeBlocks" BlueprintSubtypeId="Refinery/LargeRefineryMK2" /> -->
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="UpgradeModule/ProductivityModuleMK1" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="UpgradeModule/ProductivityModuleMK2" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="UpgradeModule/ProductivityModuleMK3" />
+
+    <!-- Admin -->
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="Refinery/LargeRefineryAdmin" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="Reactor/SmallGeneratorAdmin" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="Assembler/AssemblerAdmin" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="SafeZoneBlock/SafeZoneAdmin" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="StoreBlock/StoreBlockAdmin" />
+
+  </BlueprintClassEntries>
+</Definitions>

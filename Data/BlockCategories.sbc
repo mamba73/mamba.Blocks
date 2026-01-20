@@ -1,0 +1,70 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <CategoryClasses>
+        <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+            <Id>
+                <TypeId>GuiBlockCategoryDefinition</TypeId>
+                <SubtypeId />
+            </Id>
+            <DisplayName>DisplayName_Category_LargeBlocks</DisplayName>
+            <Name>LargeBlocks</Name>
+            <StrictSearch>true</StrictSearch>
+            <ItemIds>
+
+                <string>CargoContainer/LargeBlockLargeContainerMK1</string>
+                <string>CargoContainer/LargeBlockLargeContainerMK2</string>
+                <string>CargoContainer/LargeBlockLargeContainerMK3</string>
+                <string>UpgradeModule/ProductivityModuleMK1</string>
+                <string>UpgradeModule/ProductivityModuleMK2</string>
+                <string>UpgradeModule/ProductivityModuleMK3</string>
+                <!-- <string>Refinery/LargeRefineryMK</string> -->
+                                
+            </ItemIds>
+        </Category>
+
+        <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+            <Id>
+                <TypeId>GuiBlockCategoryDefinition</TypeId>
+                <SubtypeId />
+            </Id>
+            <DisplayName>DisplayName_Category_ConveyorBlocks</DisplayName>
+            <Name>Conveyors</Name>
+            <ItemIds>
+                <!-- LARGE BLOCKS -->
+                <string>CargoContainer/LargeBlockLargeContainerMK1</string>
+                <string>CargoContainer/LargeBlockLargeContainerMK2</string>
+                <string>CargoContainer/LargeBlockLargeContainerMK3</string>
+            </ItemIds>
+        </Category>
+
+        <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+            <Id>
+                <TypeId>GuiBlockCategoryDefinition</TypeId>
+                <SubtypeId />
+            </Id>
+            <DisplayName>Admin Blocks</DisplayName>
+            <Name>Admin Blocks</Name>
+            <ItemIds>
+                <string>SafeZoneBlock/SafeZoneAdmin</string>
+                <string>Reactor/SmallGeneratorAdmin</string>
+                <string>Refinery/LargeRefineryAdmin</string>
+                <string>Assembler/AssemblerAdmin</string>
+                <string>OxygenGenerator/OxygenGeneratorAdmin</string>
+                <string>StoreBlock/StoreBlockAdmin</string>
+            </ItemIds>
+        </Category>
+
+
+        <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+            <Id>
+                <TypeId>GuiBlockCategoryDefinition</TypeId>
+                <SubtypeId />
+            </Id>
+            <DisplayName>Mamba Blocks</DisplayName>
+            <Name>Mamba Blocks</Name>
+            <ItemIds>
+                <string>StoreBlock/StoreBlockAdmin</string>
+            </ItemIds>
+        </Category>        
+    </CategoryClasses>
+</Definitions>

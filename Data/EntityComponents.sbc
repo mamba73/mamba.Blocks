@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EntityComponents>
+    
+    <!-- New MK blocks -->
+    <EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+      <Id>
+        <TypeId>Inventory</TypeId>
+        <SubtypeId>LargeBlockLargeContainerMK1</SubtypeId>
+      </Id>
+      <Size x="9.5" y="9.5" z="9.5" />
+    </EntityComponent>
+    <EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+      <Id>
+        <TypeId>Inventory</TypeId>
+        <SubtypeId>LargeBlockLargeContainerMK2</SubtypeId>
+      </Id>
+      <Size x="11.5" y="11.5" z="11.5" />
+    </EntityComponent>
+    <EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+      <Id>
+        <TypeId>Inventory</TypeId>
+        <SubtypeId>LargeBlockLargeContainerMK3</SubtypeId>
+      </Id>
+      <Size x="14.0" y="14.0" z="14.0" />
+    </EntityComponent>
+
+    <EntityComponent xsi:type="MyObjectBuilder_InventoryComponentDefinition">
+      <Id>
+        <TypeId>Inventory</TypeId>
+        <SubtypeId>SafeZoneAdmin</SubtypeId>
+      </Id>
+      <Size x="2" y="2" z="2" />
+    </EntityComponent>
+
+  </EntityComponents>
+</Definitions>

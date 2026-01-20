@@ -1,0 +1,87 @@
+
+
+[b][size=150]mamba.Blocks[/size][/b] [size=110]Advanced custom blocks & Store extension for Space Engineers[/size]
+
+[hr]
+
+[b]mamba.Blocks[/b] is a gameplay-focused mod that extends vanilla Space Engineers blocks with advanced administrative and economic functionality, while keeping full compatibility with the original game systems.
+
+The main highlight of this mod is an enhanced [b]Store Block[/b] designed for player hubs, admin stations, and NPC-like trade stations.
+
+[hr]
+
+[b][size=120]Key Features[/size][/b]
+
+[list] []Custom Store Block based on the vanilla Store Block []Vanilla Buy / Sell logic fully preserved []New Store tabs for grid trading (no chat commands, fully GUI-based) []Advanced admin-only blocks for server operators []Extended Safe Zone functionality (player & admin variants) []Multiple custom cargo, refinery, assembler and utility blocks [/list]
+
+[hr]
+
+[b][size=120]Custom Store Block – Extended Trading[/size][/b]
+
+The custom Store Block introduces new functionality directly into the Store UI:
+
+[list] [][b]Sell Your Grid[/b] – players can sell owned grids within a configurable radius [][b]Grid Purchase / Buy Ship[/b] – future feature (currently marked as "In Development") [/list]
+
+[b]Sell Your Grid – how it works:[/b] [list] []Detects all player-owned grids within a defined radius []Ignores the grid the Store Block is attached to []Ignores static grids []Grid value includes all inventories and blocks [*]NPC Store Blocks have unlimited funds [/list]
+
+[hr]
+
+[b][size=120]Grid Handling Modes[/size][/b]
+
+Each Store Block can operate independently in one of the following modes:
+
+[list] [][b]Recycle Mode[/b] [list] []Grid is dismantled into original components []Components are stored into cargo blocks containing "Cargo4Store" in their name []If no storage space is available, the transaction is cancelled and no money is taken [/list] [][b]Destroy Mode[/b] [list] []Grid is removed from the world []Player receives money []Store owner does not lose funds [/list] [/list]
+
+NPC Store Blocks are always locked to [b]Destroy Mode[/b].
+
+[hr]
+
+[b][size=120]Cargo4Store Detection[/size][/b]
+
+Store Blocks automatically detect multiple cargo containers whose [b]Custom Name contains the text "Cargo4Store"[/b].
+
+[b]Examples:[/b] [list] []Base1 Cargo Large Ingots (Cargo4Store) []Base1 Cargo Large Components (Cargo4Store) [*]Base1 Cargo Backup (Cargo4Store) [/list]
+
+Exact naming is NOT required – only partial match.
+
+[hr]
+
+[b][size=120]Safe Zones – Extended Variants[/size][/b]
+
+[b]Player Safe Zone (Modified Vanilla):[/b] [list] []Replaces default Safe Zone []Zone Chip duration: 1440 minutes (24 hours) [*]Expanded configuration limits [/list]
+
+[b]Admin Safe Zone:[/b] [list] []Does NOT require Zone Chips []Very low power consumption [*]Designed for admin hubs and NPC stations [/list]
+
+[hr]
+
+[b][size=120]Admin Blocks[/size][/b]
+
+This mod includes powerful admin-only blocks intended for server operators:
+
+[list] []Admin Reactor – no uranium usage, multi-GW power output []Admin Refinery – extremely fast processing []Admin Assembler – extremely fast production []Admin Oxygen Generator – instant gas generation []Admin Store Block – advanced trading logic []Admin Safe Zone – unlimited operation [/list]
+
+[hr]
+
+[b][size=120]Custom Cargo Blocks[/size][/b]
+
+Three tiers of large-grid cargo containers are included:
+
+[list] []MK1 – entry level []MK2 – improved capacity [*]MK3 – high-capacity storage [/list]
+
+Designed for long-term progression and player hubs.
+
+[hr]
+
+[b][size=120]Compatibility[/size][/b]
+
+[list] []Works in Creative and Survival []Safe to add to existing worlds []No chat commands []No scripts required [/list]
+
+[hr]
+
+[b][size=120]Status[/size][/b]
+
+[list] []Grid Purchase / Ship Market – [i]Planned[/i] []Advanced pricing rules – [i]Planned[/i] [*]NPC economy extensions – [i]Planned[/i] [/list]
+
+[hr]
+
+[b]Developed by:[/b] mamba

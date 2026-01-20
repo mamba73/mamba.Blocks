@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Definitions 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EntityContainers>
+    
+    <!-- LARGE CARGO LARGE -->
+    <Container>
+      <Id>
+        <TypeId>CargoContainer</TypeId>
+        <SubtypeId>LargeBlockLargeContainerMK1</SubtypeId>
+      </Id>
+      <DefaultComponents>
+        <Component BuilderType="MyObjectBuilder_Inventory" />
+      </DefaultComponents>
+    </Container>
+    <Container>
+      <Id>
+        <TypeId>CargoContainer</TypeId>
+        <SubtypeId>LargeBlockLargeContainerMK2</SubtypeId>
+      </Id>
+      <DefaultComponents>
+        <Component BuilderType="MyObjectBuilder_Inventory" />
+      </DefaultComponents>
+    </Container>
+    <Container>
+      <Id>
+        <TypeId>CargoContainer</TypeId>
+        <SubtypeId>LargeBlockLargeContainerMK3</SubtypeId>
+      </Id>
+      <DefaultComponents>
+        <Component BuilderType="MyObjectBuilder_Inventory" />
+      </DefaultComponents>
+    </Container>
+
+
+    <Container>
+      <Id>
+        <TypeId>SafeZoneBlock</TypeId>
+        <SubtypeId>SafeZoneAdmin</SubtypeId>
+      </Id>
+      <DefaultComponents>
+        <Component BuilderType="MyObjectBuilder_Inventory" SubtypeId="SafeZoneAdmin"
+          ForceCreate="true" />
+      </DefaultComponents>
+    </Container>    
+
+    <Container>
+      <Id>
+        <TypeId>StoreBlock</TypeId>
+        <SubtypeId>StoreBlockAdmin</SubtypeId>
+      </Id>
+      <DefaultComponents>
+        <Component BuilderType="MyObjectBuilder_Inventory" SubtypeId="StoreBlockAdmin"
+          ForceCreate="true" />
+      </DefaultComponents>
+    </Container>    
+
+  </EntityContainers>
+</Definitions>

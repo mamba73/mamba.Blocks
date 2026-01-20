@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <CubeBlocks>
+        <!-- Admin blocks -->
+
+        <Definition xsi:type="MyObjectBuilder_RefineryDefinition">
+            <Id>
+                <TypeId>Refinery</TypeId>
+                <SubtypeId>LargeRefineryAdmin</SubtypeId>
+            </Id>
+            <DisplayName>Admin Refinery</DisplayName>
+            <Icon>Textures\GUI\Icons\Admin\RefineryAdmin.dds</Icon>
+            <Description>Refinery for admin
+Using this as a player will result in a ban.</Description>
+            <CubeSize>Large</CubeSize>
+            <BlockTopology>TriangleMesh</BlockTopology>
+            <Size x="2" y="4" z="2" />
+            <ModelOffset x="0" y="0" z="0" />
+            <Model>Models\Cubes\Large\Refinery.mwm</Model>
+            <Components>
+                <Component Subtype="Computer" Count="10">
+                    <DeconstructId>
+                        <TypeId>Ore</TypeId>
+                        <SubtypeId>Scrap</SubtypeId>
+                    </DeconstructId>
+                </Component>
+                <Component Subtype="AdminCoin" Count="10">
+                    <DeconstructId>
+                        <TypeId>Ore</TypeId>
+                        <SubtypeId>Scrap</SubtypeId>
+                    </DeconstructId>
+                </Component>
+            </Components>
+            <CriticalComponent Subtype="AdminCoin" Index="0" />
+            <Center x="1" y="0" z="1" />
+            <MountPoints>
+                <MountPoint Side="Back" StartX="0" StartY="0" EndX="2" EndY="4" />
+                <MountPoint Side="Bottom" StartX="0" StartY="1" EndX="2" EndY="2" Default="true" />
+                <MountPoint Side="Top" StartX="0" StartY="0" EndX="2" EndY="1" />
+                <MountPoint Side="Left" StartX="1" StartY="0" EndX="2" EndY="4" />
+                <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="4" />
+            </MountPoints>
+            <BuildProgressModels>
+                <Model BuildPercentUpperBound="0.16"
+                    File="Models\Cubes\Large\RefineryConstruction_1.mwm" />
+                <Model BuildPercentUpperBound="0.33"
+                    File="Models\Cubes\Large\RefineryConstruction_2.mwm" />
+                <Model BuildPercentUpperBound="0.50"
+                    File="Models\Cubes\Large\RefineryConstruction_3.mwm" />
+                <Model BuildPercentUpperBound="0.83"
+                    File="Models\Cubes\Large\RefineryConstruction_4.mwm" />
+                <Model BuildPercentUpperBound="1.00"
+                    File="Models\Cubes\Large\RefineryConstruction_5.mwm" />
+            </BuildProgressModels>
+            <BlockPairName>LargeRefineryAdmin</BlockPairName>
+            <EdgeType>Light</EdgeType>
+            <BuildTimeSeconds>9999999</BuildTimeSeconds>
+            <ResourceSinkGroup>Factory</ResourceSinkGroup>
+            <InventoryMaxVolume>7.5</InventoryMaxVolume>
+            <InventorySize>
+                <X>2.5</X>
+                <Y>2.5</Y>
+                <Z>2.5</Z>
+            </InventorySize>
+
+            <InventoryFillFactorMin>0.3</InventoryFillFactorMin>
+            <InventoryFillFactorMax>0.6</InventoryFillFactorMax>
+
+            <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+            <OperationalPowerConsumption>0.001</OperationalPowerConsumption>
+            <BlueprintClasses>
+                <Class>Ingots</Class>
+            </BlueprintClasses>
+            <!-- <RefineSpeed>1.3</RefineSpeed> -->
+            <!-- <MaterialEfficiency>1.0</MaterialEfficiency> -->
+            <RefineSpeed>2000</RefineSpeed>
+            <MaterialEfficiency>1</MaterialEfficiency>
+            <OreAmountPerPullRequest>2000</OreAmountPerPullRequest>
+            <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
+            <Center x="1" y="0" z="0" />
+            <DamagedSound>ParticleHeavyMech</DamagedSound>
+            <PrimarySound>BlockRafinery</PrimarySound>
+            <ActionSound>BlockRafineryProcess</ActionSound>
+            <EmissiveColorPreset>Default</EmissiveColorPreset>
+            <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+            <DestroySound>WepSmallWarheadExpl</DestroySound>
+            <PCU>90</PCU>
+            <TieredUpdateTimes>
+                <unsignedInt>60</unsignedInt>
+                <unsignedInt>120</unsignedInt>
+                <unsignedInt>240</unsignedInt>
+            </TieredUpdateTimes>
+        </Definition>
+
+        <Definition xsi:type="MyObjectBuilder_OxygenGeneratorDefinition">
+            <Id>
+                <TypeId>OxygenGenerator</TypeId>
+                <SubtypeId>OxygenGeneratorAdmin</SubtypeId>
+            </Id>
+            <DisplayName>Admin H2/O2 Generator</DisplayName>
+            <Icon>Textures\GUI\Icons\Admin\OxygenGeneratorAdmin.dds</Icon>
+            <Description>Hydro / Oxygen Generator for admin
+Using this as a player will result in a ban.</Description>
+            <CubeSize>Large</CubeSize>
+            <BlockTopology>TriangleMesh</BlockTopology>
+            <Size x="1" y="2" z="1" />
+            <ModelOffset x="0" y="0" z="0" />
+            <Model>Models\Cubes\Large\OxygenGenerator.mwm</Model>
+            <Components>
+                <Component Subtype="Computer" Count="10">
+                    <DeconstructId>
+                        <TypeId>Ore</TypeId>
+                        <SubtypeId>Scrap</SubtypeId>
+                    </DeconstructId>
+                </Component>
+                <Component Subtype="AdminCoin" Count="10">
+                    <DeconstructId>
+                        <TypeId>Ore</TypeId>
+                        <SubtypeId>Scrap</SubtypeId>
+                    </DeconstructId>
+                </Component>
+            </Components>
+            <CriticalComponent Subtype="AdminCoin" Index="0" />
+            <MountPoints>
+                <MountPoint Side="Back" StartX="0" StartY="1" EndX="1" EndY="2" PropertiesMask="2"
+                    ExclusionMask="1" />
+                <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Front" StartX="0" StartY="1" EndX="1" EndY="2" PropertiesMask="2"
+                    ExclusionMask="1" />
+                <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" Default="true" />
+                <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="2" />
+                <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Right" StartX="0" StartY="1" EndX="1" EndY="2" PropertiesMask="2"
+                    ExclusionMask="1" />
+            </MountPoints>
+            <IsAirTight>true</IsAirTight>
+            <BuildProgressModels>
+                <Model BuildPercentUpperBound="0.33"
+                    File="Models\Cubes\Large\OxygenGeneratorConstruction_1.mwm" />
+                <Model BuildPercentUpperBound="0.66"
+                    File="Models\Cubes\Large\OxygenGeneratorConstruction_2.mwm" />
+                <Model BuildPercentUpperBound="1.00"
+                    File="Models\Cubes\Large\OxygenGeneratorConstruction_3.mwm" />
+            </BuildProgressModels>
+            <BlockPairName>OxygenGeneratorAdmin</BlockPairName>
+            <EdgeType>Light</EdgeType>
+            <BuildTimeSeconds>99999999999</BuildTimeSeconds>
+            <ResourceSourceGroup>Reactors</ResourceSourceGroup>
+            <ResourceSinkGroup>Factory</ResourceSinkGroup>
+            <IceConsumptionPerSecond>25</IceConsumptionPerSecond>
+            <InventoryMaxVolume>10</InventoryMaxVolume>
+            <InventorySize>
+                <X>2</X>
+                <Y>2</Y>
+                <Z>2</Z>
+            </InventorySize>
+
+            <InventoryFillFactorMin>0.3</InventoryFillFactorMin>
+            <InventoryFillFactorMax>0.6</InventoryFillFactorMax>
+
+            <FuelPullAmountFromConveyorInMinutes>2.2</FuelPullAmountFromConveyorInMinutes>
+
+            <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+            <OperationalPowerConsumption>0.001</OperationalPowerConsumption>
+            <ProducedGases>
+                <GasInfo>
+                    <Id>
+                        <TypeId>GasProperties</TypeId>
+                        <SubtypeId>Oxygen</SubtypeId>
+                    </Id>
+                    <IceToGasRatio>99999999999</IceToGasRatio>
+                </GasInfo>
+                <GasInfo>
+                    <Id>
+                        <TypeId>GasProperties</TypeId>
+                        <SubtypeId>Hydrogen</SubtypeId>
+                    </Id>
+                    <IceToGasRatio>99999999999</IceToGasRatio>
+                </GasInfo>
+            </ProducedGases>
+            <BlueprintClasses>
+                <Class>Ice</Class>
+                <Class>OxygenBottles</Class>
+                <Class>HydrogenBottles</Class>
+            </BlueprintClasses>
+            <DamageEffectName>Damage_WeapExpl_Damaged</DamageEffectName>
+            <DamagedSound>ParticleWeapExpl</DamagedSound>
+            <GenerateSound>BlockOxyGenProcess</GenerateSound>
+            <IdleSound>BlockOxyGenIdle</IdleSound>
+            <EmissiveColorPreset>Extended</EmissiveColorPreset>
+            <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+            <DestroySound>WepSmallWarheadExpl</DestroySound>
+            <MirroringX>Y</MirroringX>
+            <MirroringY>X</MirroringY>
+            <PCU>50</PCU>
+            <TieredUpdateTimes>
+                <unsignedInt>300</unsignedInt>
+                <unsignedInt>600</unsignedInt>
+                <unsignedInt>1200</unsignedInt>
+            </TieredUpdateTimes>
+        </Definition>
+
+        <Definition xsi:type="MyObjectBuilder_AssemblerDefinition">
+            <Id>
+                <TypeId>Assembler</TypeId>
+                <SubtypeId>AssemblerAdmin</SubtypeId>
+            </Id>
+            <DisplayName>Admin Assembler</DisplayName>
+            <Icon>Textures\GUI\Icons\Admin\AssemblerAdmin.dds</Icon>
+            <Description>Assembler for admin
+Using this as a player will result in a ban.</Description>
+            <CubeSize>Large</CubeSize>
+            <GuiVisible>false</GuiVisible>
+            <BlockTopology>TriangleMesh</BlockTopology>
+            <Size x="1" y="1" z="1" />
+            <ModelOffset x="0" y="0" z="0" />
+            <Model>Models\Cubes\Large\BasicAssembler.mwm</Model>
+            <Components>
+                <Component Subtype="Computer" Count="10">
+                    <DeconstructId>
+                        <TypeId>Ore</TypeId>
+                        <SubtypeId>Scrap</SubtypeId>
+                    </DeconstructId>
+                </Component>
+                <Component Subtype="AdminCoin" Count="10">
+                    <DeconstructId>
+                        <TypeId>Ore</TypeId>
+                        <SubtypeId>Scrap</SubtypeId>
+                    </DeconstructId>
+                </Component>
+            </Components>
+            <CriticalComponent Subtype="AdminCoin" Index="0" />
+            <MountPoints>
+                <MountPoint Side="Front" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Back" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" Default="true" />
+                <MountPoint Side="Top" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Left" StartX="0" StartY="0" EndX="1" EndY="1" />
+                <MountPoint Side="Right" StartX="0" StartY="0" EndX="1" EndY="1" />
+            </MountPoints>
+            <BuildProgressModels>
+                <Model BuildPercentUpperBound="0.33"
+                    File="Models\Cubes\Large\BasicAssembler_Construction1.mwm" />
+                <Model BuildPercentUpperBound="0.66"
+                    File="Models\Cubes\Large\BasicAssembler_Construction2.mwm" />
+                <Model BuildPercentUpperBound="1.00"
+                    File="Models\Cubes\Large\BasicAssembler_Construction3.mwm" />
+            </BuildProgressModels>
+            <BlockPairName>AssemblerAdmin</BlockPairName>
+            <EdgeType>Light</EdgeType>
+            <BuildTimeSeconds>9999999</BuildTimeSeconds>
+            <ResourceSinkGroup>Factory</ResourceSinkGroup>
+            <InventoryMaxVolume>100</InventoryMaxVolume>
+            <InventorySize>
+                <X>1</X>
+                <Y>1</Y>
+                <Z>1</Z>
+            </InventorySize>
+            <AssemblySpeed>25</AssemblySpeed>
+         
+            <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+            <OperationalPowerConsumption>0.001</OperationalPowerConsumption>
+            <BlueprintClasses>
+                <Class>LargeBlocks</Class>
+                <Class>SmallBlocks</Class>
+                <Class>Components</Class>
+                <Class>EliteEquipment</Class>
+                <Class>EliteTools</Class>
+				<Class>EliteWeapons</Class>
+				<Class>EliteConsumables</Class>				
+                <Class>BuildPlanner</Class>
+            </BlueprintClasses>
+            <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
+            <DamagedSound>ParticleHeavyMech</DamagedSound>
+            <PrimarySound>BlockAssembler</PrimarySound>
+            <ActionSound>BlockAssemblerProcess</ActionSound>
+            <DestroyEffect>Explosion_Missile</DestroyEffect>
+            <DestroySound>WepSmallMissileExpl</DestroySound>
+            <PCU>40</PCU>
+            <IsAirTight>true</IsAirTight>
+            <TieredUpdateTimes>
+                <unsignedInt>60</unsignedInt>
+                <unsignedInt>120</unsignedInt>
+                <unsignedInt>240</unsignedInt>
+            </TieredUpdateTimes>
+        </Definition>
+
+        <!-- Player Blocks -->
+        <!-- ProductivityModuleMK1 -->
+        <Definition xsi:type="MyObjectBuilder_UpgradeModuleDefinition">
+            <Id>
+                <TypeId>UpgradeModule</TypeId>
+                <SubtypeId>ProductivityModuleMK1</SubtypeId>
+            </Id>
+            <DisplayName>Productivity Module MK1</DisplayName>
+            <Icon>Textures\GUI\Icons\TieredBlocks\Production\UpgradeProductivityMK1.dds</Icon>
+            <Description>Increased Productivity and Yield module</Description>
+            <CubeSize>Large</CubeSize>
+            <BlockTopology>TriangleMesh</BlockTopology>
+            <Size x="1" y="1" z="2" />
+            <ModelOffset x="0" y="0" z="0" />
+            <Model>Models\Cubes\Large\UpgradeProductivity.mwm</Model>
+            <Components>
+                <Component Subtype="SteelPlate" Count="80" />
+                <Component Subtype="Construction" Count="40" />
+                <Component Subtype="SmallTube" Count="20" />
+                <Component Subtype="Computer" Count="60" />
+                <Component Subtype="Compressor" Count="20" />
+                <Component Subtype="Motor" Count="4" />
+                <Component Subtype="SteelPlate" Count="20" />
+            </Components>
+            <CriticalComponent Subtype="Motor" Index="0" />
+            <MountPoints>
+                <MountPoint Side="Right" StartX="0.15" StartY="0.15" EndX="1.85" EndY="0.85"
+                    Default="true" />
+                <MountPoint Side="Left" StartX="0.15" StartY="0.15" EndX="1.85" EndY="0.85" />
+                <MountPoint Side="Top" StartX="0.15" StartY="0.15" EndX="0.85" EndY="1.85" />
+                <MountPoint Side="Bottom" StartX="0.15" StartY="0.15" EndX="0.85" EndY="1.85" />
+                <MountPoint Side="Front" StartX="0.15" StartY="0.15" EndX="0.85" EndY="0.85" />
+                <MountPoint Side="Back" StartX="0.15" StartY="0.15" EndX="0.85" EndY="0.85" />
+            </MountPoints>
+            <BuildProgressModels>
+                <Model BuildPercentUpperBound="0.33"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_1.mwm" />
+                <Model BuildPercentUpperBound="0.66"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_2.mwm" />
+                <Model BuildPercentUpperBound="1.00"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_3.mwm" />
+            </BuildProgressModels>
+            <BlockPairName>ProductivityModuleMK1</BlockPairName>
+            <MirroringX>Z</MirroringX>
+            <MirroringZ>X</MirroringZ>
+            <EdgeType>Light</EdgeType>
+            <BuildTimeSeconds>20</BuildTimeSeconds>
+            <Upgrades>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>Productivity</UpgradeType>
+                    <Modifier>2</Modifier>
+                    <ModifierType>Additive</ModifierType>
+                </MyUpgradeModuleInfo>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>Effectiveness</UpgradeType>
+                    <Modifier>1</Modifier>
+                    <ModifierType>Multiplicative</ModifierType>
+                </MyUpgradeModuleInfo>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>PowerEfficiency</UpgradeType>
+                    <Modifier>1</Modifier>
+                    <ModifierType>Multiplicative</ModifierType>
+                </MyUpgradeModuleInfo>
+            </Upgrades>
+            <PrimarySound>BlockModuleProductivity</PrimarySound>
+            <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
+            <DamagedSound>ParticleElectrical</DamagedSound>
+            <EmissiveColorPreset>Default</EmissiveColorPreset>
+            <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+            <DestroySound>WepSmallWarheadExpl</DestroySound>
+            <PCU>1</PCU>
+            <IsAirTight>false</IsAirTight>
+        </Definition>
+
+        <!-- ProductivityModuleMK2 -->
+        <Definition xsi:type="MyObjectBuilder_UpgradeModuleDefinition">
+            <Id>
+                <TypeId>UpgradeModule</TypeId>
+                <SubtypeId>ProductivityModuleMK2</SubtypeId>
+            </Id>
+            <DisplayName>Productivity Module MK2</DisplayName>
+            <Icon>Textures\GUI\Icons\TieredBlocks\Production\UpgradeProductivityMK2.dds</Icon>
+            <Description>Increased Productivity and Yield module</Description>
+            <CubeSize>Large</CubeSize>
+            <BlockTopology>TriangleMesh</BlockTopology>
+            <Size x="1" y="1" z="2" />
+            <ModelOffset x="0" y="0" z="0" />
+            <Model>Models\Cubes\Large\UpgradeProductivity.mwm</Model>
+            <Components>
+                <Component Subtype="SteelPlate" Count="80" />
+                <Component Subtype="Construction" Count="40" />
+                <Component Subtype="SmallTube" Count="20" />
+                <Component Subtype="Computer" Count="60" />
+                <Component Subtype="Compressor" Count="40" />
+                <Component Subtype="Motor" Count="4" />
+                <Component Subtype="SteelPlate" Count="20" />
+            </Components>
+            <CriticalComponent Subtype="Motor" Index="0" />
+            <MountPoints>
+                <MountPoint Side="Right" StartX="0.15" StartY="0.15" EndX="1.85" EndY="0.85"
+                    Default="true" />
+                <MountPoint Side="Left" StartX="0.15" StartY="0.15" EndX="1.85" EndY="0.85" />
+                <MountPoint Side="Top" StartX="0.15" StartY="0.15" EndX="0.85" EndY="1.85" />
+                <MountPoint Side="Bottom" StartX="0.15" StartY="0.15" EndX="0.85" EndY="1.85" />
+                <MountPoint Side="Front" StartX="0.15" StartY="0.15" EndX="0.85" EndY="0.85" />
+                <MountPoint Side="Back" StartX="0.15" StartY="0.15" EndX="0.85" EndY="0.85" />
+            </MountPoints>
+            <BuildProgressModels>
+                <Model BuildPercentUpperBound="0.33"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_1.mwm" />
+                <Model BuildPercentUpperBound="0.66"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_2.mwm" />
+                <Model BuildPercentUpperBound="1.00"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_3.mwm" />
+            </BuildProgressModels>
+            <BlockPairName>ProductivityModuleMK2</BlockPairName>
+            <MirroringX>Z</MirroringX>
+            <MirroringZ>X</MirroringZ>
+            <EdgeType>Light</EdgeType>
+            <BuildTimeSeconds>40</BuildTimeSeconds>
+            <Upgrades>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>Productivity</UpgradeType>
+                    <Modifier>4</Modifier>
+                    <ModifierType>Additive</ModifierType>
+                </MyUpgradeModuleInfo>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>Effectiveness</UpgradeType>
+                    <Modifier>1.02</Modifier>
+                    <ModifierType>Multiplicative</ModifierType>
+                </MyUpgradeModuleInfo>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>PowerEfficiency</UpgradeType>
+                    <Modifier>1</Modifier>
+                    <ModifierType>Multiplicative</ModifierType>
+                </MyUpgradeModuleInfo>
+            </Upgrades>
+            <PrimarySound>BlockModuleProductivity</PrimarySound>
+            <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
+            <DamagedSound>ParticleElectrical</DamagedSound>
+            <EmissiveColorPreset>Default</EmissiveColorPreset>
+            <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+            <DestroySound>WepSmallWarheadExpl</DestroySound>
+            <PCU>1</PCU>
+            <IsAirTight>false</IsAirTight>
+        </Definition>
+
+        <!-- ProductivityModuleMK3 -->
+        <Definition xsi:type="MyObjectBuilder_UpgradeModuleDefinition">
+            <Id>
+                <TypeId>UpgradeModule</TypeId>
+                <SubtypeId>ProductivityModuleMK3</SubtypeId>
+            </Id>
+            <DisplayName>Productivity Module MK3</DisplayName>
+            <Icon>Textures\GUI\Icons\TieredBlocks\Production\UpgradeProductivityMK3.dds</Icon>
+            <Description>Increased Productivity and Yield module</Description>
+            <CubeSize>Large</CubeSize>
+            <BlockTopology>TriangleMesh</BlockTopology>
+            <Size x="1" y="1" z="2" />
+            <ModelOffset x="0" y="0" z="0" />
+            <Model>Models\Cubes\Large\UpgradeProductivity.mwm</Model>
+            <Components>
+                <Component Subtype="SteelPlate" Count="80" />
+                <Component Subtype="Construction" Count="40" />
+                <Component Subtype="SmallTube" Count="20" />
+                <Component Subtype="Computer" Count="60" />
+                <Component Subtype="Compressor" Count="60" />
+                <Component Subtype="Motor" Count="4" />
+                <Component Subtype="SteelPlate" Count="20" />
+            </Components>
+            <CriticalComponent Subtype="Motor" Index="0" />
+            <MountPoints>
+                <MountPoint Side="Right" StartX="0.15" StartY="0.15" EndX="1.85" EndY="0.85"
+                    Default="true" />
+                <MountPoint Side="Left" StartX="0.15" StartY="0.15" EndX="1.85" EndY="0.85" />
+                <MountPoint Side="Top" StartX="0.15" StartY="0.15" EndX="0.85" EndY="1.85" />
+                <MountPoint Side="Bottom" StartX="0.15" StartY="0.15" EndX="0.85" EndY="1.85" />
+                <MountPoint Side="Front" StartX="0.15" StartY="0.15" EndX="0.85" EndY="0.85" />
+                <MountPoint Side="Back" StartX="0.15" StartY="0.15" EndX="0.85" EndY="0.85" />
+            </MountPoints>
+            <BuildProgressModels>
+                <Model BuildPercentUpperBound="0.33"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_1.mwm" />
+                <Model BuildPercentUpperBound="0.66"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_2.mwm" />
+                <Model BuildPercentUpperBound="1.00"
+                    File="Models\Cubes\Large\UpgradeProductivityConstruction_3.mwm" />
+            </BuildProgressModels>
+            <BlockPairName>ProductivityModuleMK3</BlockPairName>
+            <MirroringX>Z</MirroringX>
+            <MirroringZ>X</MirroringZ>
+            <EdgeType>Light</EdgeType>
+            <BuildTimeSeconds>40</BuildTimeSeconds>
+            <Upgrades>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>Productivity</UpgradeType>
+                    <Modifier>6</Modifier>
+                    <ModifierType>Additive</ModifierType>
+                </MyUpgradeModuleInfo>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>Effectiveness</UpgradeType>
+                    <Modifier>1.04</Modifier>
+                    <ModifierType>Multiplicative</ModifierType>
+                </MyUpgradeModuleInfo>
+                <MyUpgradeModuleInfo>
+                    <UpgradeType>PowerEfficiency</UpgradeType>
+                    <Modifier>1</Modifier>
+                    <ModifierType>Multiplicative</ModifierType>
+                </MyUpgradeModuleInfo>
+            </Upgrades>
+            <PrimarySound>BlockModuleProductivity</PrimarySound>
+            <DamageEffectName>Damage_Electrical_Damaged</DamageEffectName>
+            <DamagedSound>ParticleElectrical</DamagedSound>
+            <EmissiveColorPreset>Default</EmissiveColorPreset>
+            <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+            <DestroySound>WepSmallWarheadExpl</DestroySound>
+            <PCU>1</PCU>
+            <IsAirTight>false</IsAirTight>
+        </Definition>
+                
+    </CubeBlocks>
+</Definitions>

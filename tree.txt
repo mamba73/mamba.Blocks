@@ -1,0 +1,19 @@
+mamba.Blocks/
+│
+├─ Data/
+│  ├─ CubeBlocks/
+│  │   └─ CubeBlocks_StoreBlock.sbc
+│  ├─ BlockCategories.sbc
+│  ├─ BlueprintClasses.sbc
+│  ├─ Blueprints.sbc
+│  └─ ComponentsCustomItems.sbc
+│
+├─ Scripts/
+│  ├─ GridPurchaseLogic.cs          # placeholder, ne radi još ništa
+│  ├─ SellYourGridLogic.cs          # placeholder, ne radi još ništa
+│  ├─ StoreBlockAdminGUI.cs         # overlay GUI gumbi
+│  └─ Utils/                        # folder za eventualne helper klase
+│
+├─ description.txt
+├─ metadata.mod
+└─ thumb.png
