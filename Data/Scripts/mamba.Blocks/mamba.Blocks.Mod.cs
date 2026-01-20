@@ -33,30 +33,26 @@ namespace mamba.Blocks
 
             try
             {
-                // Poruka u chatu (vidljiva overlay)
                 if (MyAPIGateway.Utilities != null)
                 {
                     MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Mod is starting to load...");
                 }
-
                 ModCommunication.Log("Mod is starting to load...");
-                
-                // DODAJ OVDJE
+
+                // Pozivamo GUI inicijalizaciju
                 Gui.SimpleGuiTest.Init();
 
-                // Završna poruka
                 if (MyAPIGateway.Utilities != null)
                 {
                     MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Mod loaded SUCCESSFULLY!");
                 }
-
                 ModCommunication.Log("Mod loaded SUCCESSFULLY!");
 
                 m_isInitialized = true;
             }
             catch (Exception e)
             {
-                ModCommunication.Log("Mod load FAILED: " + e.Message, "ERROR");
+                ModCommunication.Log("Mod load FAILED: " + e.Message + " | Stack: " + e.StackTrace, "ERROR");
                 if (MyAPIGateway.Utilities != null)
                 {
                     MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "ERROR: " + e.Message);

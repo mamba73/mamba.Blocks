@@ -5,6 +5,7 @@ using Sandbox.ModAPI;
 using Sandbox.ModAPI.Interfaces.Terminal;
 using VRage.ModAPI;
 using VRage.Utils;
+using mamba.Blocks; // za ModCommunication
 
 namespace mamba.Blocks.Gui
 {
@@ -21,54 +22,52 @@ namespace mamba.Blocks.Gui
 
             try
             {
-                CreateTestButton();
+                var button = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(TEST_BUTTON_ID);
+
+                button.Title = MyStringId.GetOrCompute("Sell Your Grid TEST");
+                button.Tooltip = MyStringId.GetOrCompute("Test button - samo na Admin Store");
+
+                // Vidljivost - ispravljena provjera (direktno BlockDefinition.SubtypeName)
+                button.Visible = delegate (IMyTerminalBlock block)
+                {
+                    if (block == null)
+                    {
+                        ModCommunication.Log("[DEBUG mamba] Visible: block is null");
+                        return false;
+                    }
+
+                    string subtype = block.BlockDefinition.SubtypeName;
+
+                    bool isAdmin = !string.IsNullOrEmpty(subtype) && subtype == "StoreBlockAdmin";
+
+                    ModCommunication.Log("[DEBUG mamba] Visible check - Block: " + (block.CustomName ?? "No name") +
+                                         " | SubtypeName: '" + (subtype ?? "null") + "' | IsAdmin: " + isAdmin);
+
+                    return isAdmin;
+                };
+
+                button.Action = delegate (IMyTerminalBlock block)
+                {
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "TEST BUTTON CLICKED! - Sell Your Grid");
+                    ModCommunication.Log("[DEBUG mamba] Test button clicked on: " + (block.CustomName ?? block.DisplayNameText));
+                };
+
+                button.Enabled = delegate (IMyTerminalBlock block)
+                {
+                    return block.IsFunctional;
+                };
+
+                MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(button);
 
                 m_initialized = true;
-                ModCommunication.Log("Simple GUI test initialized - test button registered.");
-                if (MyAPIGateway.Utilities != null)
-                {
-                    MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "GUI test: button registered");
-                }
+                ModCommunication.Log("[DEBUG mamba] Test button added to Control Panel (K tab).");
+                MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Test button registered - vidi u K tab-u");
             }
             catch (Exception e)
             {
-                ModCommunication.Log("GUI test FAILED: " + e.Message, "ERROR");
-                if (MyAPIGateway.Utilities != null)
-                {
-                    MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "GUI ERROR: " + e.Message);
-                }
+                ModCommunication.Log("[DEBUG mamba] GUI test FAILED: " + e.Message, "ERROR");
+                MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "GUI ERROR: " + e.Message);
             }
-        }
-
-        private static void CreateTestButton()
-        {
-            var button = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(TEST_BUTTON_ID);
-
-            button.Title = MyStringId.GetOrCompute("Sell Your Grid TEST");
-            button.Tooltip = MyStringId.GetOrCompute("Test button - should appear only on admin store");
-
-            // Najjednostavnija vidljivost: pojavljuje se na SVIM Store blockovima
-            // (da vidimo radi li uopće; kasnije ćemo filtrirati)
-            button.Visible = (IMyTerminalBlock block) => true;  // privremeno da testiramo
-
-            // Alternativa ako želiš pokušati filtrirati već sad (možeš isprobati obje)
-            // button.Visible = (block) => block != null && block.BlockDefinition != null && block.BlockDefinition.Id.SubtypeName == "StoreBlockAdmin";
-
-            button.Action = (IMyTerminalBlock block) =>
-            {
-                if (MyAPIGateway.Session != null && MyAPIGateway.Session.LocalHumanPlayer != null)
-                {
-                    MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "TEST BUTTON CLICKED! - Sell Your Grid");
-                    ModCommunication.Log("Test button clicked on block: " + (block.CustomName ?? block.DisplayNameText));
-                }
-            };
-
-            button.Enabled = (block) => block.IsFunctional;
-
-            // Dodajemo kontrolu
-            MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(button);
-
-            ModCommunication.Log("Test button created and added.");
         }
     }
 }
