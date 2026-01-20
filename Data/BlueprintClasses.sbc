@@ -16,11 +16,12 @@
     <Entry Class="LargeBlocks" BlueprintSubtypeId="UpgradeModule/ProductivityModuleMK3" />
 
     <!-- Admin -->
+<!--      
     <Entry Class="LargeBlocks" BlueprintSubtypeId="Refinery/LargeRefineryAdmin" />
     <Entry Class="LargeBlocks" BlueprintSubtypeId="Reactor/SmallGeneratorAdmin" />
     <Entry Class="LargeBlocks" BlueprintSubtypeId="Assembler/AssemblerAdmin" />
     <Entry Class="LargeBlocks" BlueprintSubtypeId="SafeZoneBlock/SafeZoneAdmin" />
-    <Entry Class="LargeBlocks" BlueprintSubtypeId="StoreBlock/StoreBlockAdmin" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="StoreBlock/StoreBlockAdmin" /> -->
 
   </BlueprintClassEntries>
 </Definitions>

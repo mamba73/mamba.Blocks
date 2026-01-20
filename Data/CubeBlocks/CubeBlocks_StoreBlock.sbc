@@ -42,8 +42,8 @@
             <ResourceSinkGroup>Conveyors</ResourceSinkGroup>
             <RequiredPowerInput>0.002</RequiredPowerInput>
             <InventorySize>
-                <X>3</X>
-                <Y>3</Y>
+                <X>2</X>
+                <Y>2</Y>
                 <Z>2</Z>
             </InventorySize>
             <MountPoints>
