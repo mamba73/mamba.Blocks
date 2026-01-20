@@ -40,8 +40,8 @@ namespace mamba.Blocks
                 ModCommunication.Log("Mod is starting to load...");
 
                 // Pozivamo GUI inicijalizaciju
-                Gui.SimpleGuiTest.Init();
-                // Gui.StoreBlockAdminGui.Init();
+                // Gui.SimpleGuiTest.Init();
+                Gui.StoreBlockAdminGui.Init();
 
 
                 if (MyAPIGateway.Utilities != null)
