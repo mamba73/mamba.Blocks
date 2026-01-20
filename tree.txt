@@ -17,3 +17,19 @@ mamba.Blocks/
 ├─ description.txt
 ├─ metadata.mod
 └─ thumb.png
+
+-------
+
+mamba.Blocks/
+├── Data/
+│   ├── Scripts/
+│   │   └── mamba.Blocks/                  ← **OBAVEZNO** ovaj folder (assembly name)
+│   │       ├── mamba.Blocks.Mod.cs        ← **KREIRAJ** – Glavni entry point + session
+│   │       └── Gui/
+│   │           └── mamba.StoreGuiExtensions.cs  ← **KREIRAJ** – GUI gumbi + debug log
+│   ├── CubeBlocks/
+│   │   └── StoreAdmin.sbc                 ← **VEĆ IMAŠ** – custom block definicija
+│   └── ... (ostali postojeći fajlovi)
+├── Textures/GUI/Icons/ ... (ostalo)
+├── metadata.mod
+└── ...
