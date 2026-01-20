@@ -5,67 +5,90 @@ using Sandbox.ModAPI;
 using Sandbox.ModAPI.Interfaces.Terminal;
 using VRage.ModAPI;
 using VRage.Utils;
-using mamba.Blocks; // za ModCommunication
+using mamba.Blocks;
 
 namespace mamba.Blocks.Gui
 {
     public static class SimpleGuiTest
     {
-        private const string TEST_BUTTON_ID = "Mamba_TestSellGrid";
+        private const string SELL_BUTTON_ID = "Mamba_TestSellGrid";
+        private const string BUY_BUTTON_ID = "Mamba_TestBuyGrid";
 
         private static bool m_initialized = false;
 
         public static void Init()
         {
-            if (m_initialized)
-                return;
+            if (m_initialized) return;
 
             try
             {
-                var button = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(TEST_BUTTON_ID);
+                // Prvi gumb - Sell Your Grid TEST
+                var sellButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(SELL_BUTTON_ID);
 
-                button.Title = MyStringId.GetOrCompute("Sell Your Grid TEST");
-                button.Tooltip = MyStringId.GetOrCompute("Test button - samo na Admin Store");
+                sellButton.Title = MyStringId.GetOrCompute("Sell Your Grid TEST");
+                sellButton.Tooltip = MyStringId.GetOrCompute("Prodaja gridova - test");
 
-                // Vidljivost - ispravljena provjera (direktno BlockDefinition.SubtypeName)
-                button.Visible = delegate (IMyTerminalBlock block)
+                sellButton.Visible = delegate (IMyTerminalBlock block)
                 {
-                    if (block == null)
-                    {
-                        ModCommunication.Log("[DEBUG mamba] Visible: block is null");
-                        return false;
-                    }
+                    if (block == null) return false;
 
-                    string subtype = block.BlockDefinition.SubtypeName;
+                    string defString = block.BlockDefinition.ToString();
 
-                    bool isAdmin = !string.IsNullOrEmpty(subtype) && subtype == "StoreBlockAdmin";
+                    bool isAdmin = defString.Contains("StoreBlockAdmin");
 
-                    ModCommunication.Log("[DEBUG mamba] Visible check - Block: " + (block.CustomName ?? "No name") +
-                                         " | SubtypeName: '" + (subtype ?? "null") + "' | IsAdmin: " + isAdmin);
+                    ModCommunication.Log("[DEBUG mamba] Sell Visible - Block: " + (block.CustomName ?? "No name") +
+                                         " | BlockDefinition.ToString(): '" + defString + "' | IsAdmin: " + isAdmin);
 
                     return isAdmin;
                 };
 
-                button.Action = delegate (IMyTerminalBlock block)
+                sellButton.Action = delegate (IMyTerminalBlock block)
                 {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "TEST BUTTON CLICKED! - Sell Your Grid");
-                    ModCommunication.Log("[DEBUG mamba] Test button clicked on: " + (block.CustomName ?? block.DisplayNameText));
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Sell Your Grid - UNDER DEVELOPMENT");
+                    ModCommunication.Log("[DEBUG mamba] Sell clicked on: " + (block.CustomName ?? block.DisplayNameText));
                 };
 
-                button.Enabled = delegate (IMyTerminalBlock block)
+                sellButton.Enabled = delegate (IMyTerminalBlock block) { return block.IsFunctional; };
+
+                MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(sellButton);
+
+                // Drugi gumb - Grid Purchase TEST
+                var buyButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(BUY_BUTTON_ID);
+
+                buyButton.Title = MyStringId.GetOrCompute("Grid Purchase TEST");
+                buyButton.Tooltip = MyStringId.GetOrCompute("Kupnja gridova - test");
+
+                buyButton.Visible = delegate (IMyTerminalBlock block)
                 {
-                    return block.IsFunctional;
+                    if (block == null) return false;
+
+                    string defString = block.BlockDefinition.ToString();
+
+                    bool isAdmin = defString.Contains("StoreBlockAdmin");
+
+                    ModCommunication.Log("[DEBUG mamba] Buy Visible - Block: " + (block.CustomName ?? "No name") +
+                                         " | BlockDefinition.ToString(): '" + defString + "' | IsAdmin: " + isAdmin);
+
+                    return isAdmin;
                 };
 
-                MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(button);
+                buyButton.Action = delegate (IMyTerminalBlock block)
+                {
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Grid Purchase - IN DEVELOPMENT");
+                    ModCommunication.Log("[DEBUG mamba] Buy clicked on: " + (block.CustomName ?? block.DisplayNameText));
+                };
+
+                buyButton.Enabled = delegate (IMyTerminalBlock block) { return block.IsFunctional; };
+
+                MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(buyButton);
 
                 m_initialized = true;
-                ModCommunication.Log("[DEBUG mamba] Test button added to Control Panel (K tab).");
-                MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Test button registered - vidi u K tab-u");
+                ModCommunication.Log("[DEBUG mamba] Oba gumba dodana u K tab.");
+                MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Oba gumba dodana - provjeri K tab na Admin bloku");
             }
             catch (Exception e)
             {
-                ModCommunication.Log("[DEBUG mamba] GUI test FAILED: " + e.Message, "ERROR");
+                ModCommunication.Log("[DEBUG mamba] GUI FAILED: " + e.Message, "ERROR");
                 MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "GUI ERROR: " + e.Message);
             }
         }
