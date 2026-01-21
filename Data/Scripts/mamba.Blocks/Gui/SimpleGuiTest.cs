@@ -25,7 +25,12 @@ namespace mamba.Blocks.Gui
                 var sellButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(SELL_BUTTON_ID);
                 sellButton.Title = MyStringId.GetOrCompute("Sell Your Grid");
                 sellButton.Tooltip = MyStringId.GetOrCompute("Sell your grids - test");
-                sellButton.Visible = block => block != null && block.BlockDefinition.ToString().Contains("StoreBlockAdmin");
+                sellButton.Visible = block =>
+                {
+                    if (block == null) return false;
+                    return block.BlockDefinition.TypeId.ToString() == "MyObjectBuilder_StoreBlock" &&
+                           block.BlockDefinition.SubtypeId.ToString() == "StoreBlockAdmin";
+                };
                 sellButton.Action = block =>
                 {
                     MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Sell Your Grid clicked!");
@@ -38,7 +43,12 @@ namespace mamba.Blocks.Gui
                 var buyButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(BUY_BUTTON_ID);
                 buyButton.Title = MyStringId.GetOrCompute("Buy Grid");
                 buyButton.Tooltip = MyStringId.GetOrCompute("Buy grids - test");
-                buyButton.Visible = block => block != null && block.BlockDefinition.ToString().Contains("StoreBlockAdmin");
+                buyButton.Visible = block =>
+                {
+                    if (block == null) return false;
+                    return block.BlockDefinition.TypeId.ToString() == "MyObjectBuilder_StoreBlock" &&
+                           block.BlockDefinition.SubtypeId.ToString() == "StoreBlockAdmin";
+                };
                 buyButton.Action = block =>
                 {
                     MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Buy Grid clicked!");

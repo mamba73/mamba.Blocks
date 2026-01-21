@@ -36,7 +36,8 @@ namespace mamba.Blocks
 
                 ModCommunication.Log("Mod is starting to load...");
 
-                Gui.StoreBlockAdminGui.Init();
+                // Gui.StoreBlockAdminGui.Init();
+                Gui.SimpleGuiTest.Init();
 
                 if (MyAPIGateway.Utilities != null)
                     MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Mod loaded SUCCESSFULLY!");
