@@ -1,3 +1,4 @@
+// File path: Data/Scripts/mamba.Blocks/Components/MambaDebugAllBlocks.cs
 using Sandbox.ModAPI;
 using VRage.Game.Components;
 using VRage.Game.ModAPI;

@@ -33,3 +33,21 @@ mamba.Blocks/
 ├── Textures/GUI/Icons/ ... (ostalo)
 ├── metadata.mod
 └── ...
+
+-------
+
+mamba.Blocks/
+├── Data/
+│   ├── Scripts/
+│   │   └── mamba.Blocks/
+│   │       ├── Components/
+│   │       │   ├── mamba.MambaDebugAllBlocks.cs
+│   │       │   └── mamba.MambaStoreBlockLogic.cs
+│   │       ├── Gui/
+│   │       │   ├── mamba.SimpleGuiTest.cs
+│   │       │   └── mamba.StoreBlockAdminGui.cs
+│   │       └── mamba.Blocks.Mod.cs
+│   └─── CubeBlocks/
+├── Textures/GUI/Icons/ ... (ostalo)
+├── metadata.mod
+└── ...
