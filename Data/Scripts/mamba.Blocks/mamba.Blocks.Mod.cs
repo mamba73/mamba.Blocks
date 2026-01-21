@@ -1,9 +1,7 @@
 // Full path: mamba.Blocks/Data/Scripts/mamba.Blocks/mamba.Blocks.Mod.cs
-
 using System;
 using Sandbox.ModAPI;
 using VRage.Game.Components;
-using VRage.ModAPI;
 using VRage.Utils;
 
 namespace mamba.Blocks
@@ -34,38 +32,24 @@ namespace mamba.Blocks
             try
             {
                 if (MyAPIGateway.Utilities != null)
-                {
                     MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Mod is starting to load...");
-                }
+
                 ModCommunication.Log("Mod is starting to load...");
 
-                // Pozivamo GUI inicijalizaciju
-                // Gui.SimpleGuiTest.Init();
                 Gui.StoreBlockAdminGui.Init();
 
-
                 if (MyAPIGateway.Utilities != null)
-                {
                     MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Mod loaded SUCCESSFULLY!");
-                }
-                ModCommunication.Log("Mod loaded SUCCESSFULLY!");
 
+                ModCommunication.Log("Mod loaded SUCCESSFULLY!");
                 m_isInitialized = true;
             }
             catch (Exception e)
             {
                 ModCommunication.Log("Mod load FAILED: " + e.Message + " | Stack: " + e.StackTrace, "ERROR");
                 if (MyAPIGateway.Utilities != null)
-                {
                     MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "ERROR: " + e.Message);
-                }
             }
-        }
-
-        protected override void UnloadData()
-        {
-            base.UnloadData();
-            ModCommunication.Log("Mod unloaded.");
         }
     }
 }

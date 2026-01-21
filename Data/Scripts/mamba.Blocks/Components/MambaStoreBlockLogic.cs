@@ -4,84 +4,51 @@ using System.Collections.Generic;
 using Sandbox.ModAPI;
 using VRage.Game.Components;
 using VRage.Game.ModAPI;
-using VRage.ModAPI;
-using VRageMath;
-using mamba.Blocks;
+using VRage.Utils;
 
 namespace mamba.Blocks.Components
 {
-    // Custom logic for StoreBlockAdmin - auto-scan Cargo4Store and add offers
-    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_StoreBlock), false, "StoreBlockAdmin")]
+    [MyEntityComponentDescriptor(typeof(VRage.Game.ModAPI.IMyCubeBlock), false, "StoreBlockAdmin")]
     public class MambaStoreBlockLogic : MyGameLogicComponent
     {
-        private IMyStoreBlock m_store;
+        private IMyTerminalBlock m_block;
         private IMyCubeGrid m_grid;
-        private float m_scanTimer = 0;
-        private float m_priceMultiplier = 1.0f; // Default 1x
+        private float m_timer = 0f;
 
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
             base.Init(objectBuilder);
 
-            m_store = Entity as IMyStoreBlock;
-            if (m_store == null) return;
+            m_block = Entity as IMyTerminalBlock;
+            if (m_block == null) return;
 
-            m_grid = m_store.CubeGrid;
-            ParseCustomData(); // Parse PriceMul from CustomData
+            m_grid = m_block.CubeGrid;
 
-            NeedsUpdate |= MyEntityUpdateEnum.EACH_100; // Update every 100 ticks (~1.6s)
+            NeedsUpdate |= MyEntityUpdateEnum.EACH_100TH_FRAME; // mod-friendly
 
-            ModCommunication.Log("[DEBUG mamba] Cargo4Store logic attached to " + m_store.CustomName);
+            ModCommunication.Log("[DEBUG mamba] Logic attached to block");
         }
 
         public override void UpdateBeforeSimulation()
         {
             base.UpdateBeforeSimulation();
-
-            m_scanTimer += 1f;
-            if (m_scanTimer < 3600f) return; // Scan every 60s (3600 ticks)
-
-            m_scanTimer = 0f;
-            ParseCustomData();
-            ScanAndUpdateOffers();
+            m_timer += 1f;
+            if (m_timer < 600f) return; // ~10 sekundi
+            m_timer = 0f;
+            UpdateOffers();
         }
 
-        private void ParseCustomData()
+        private void UpdateOffers()
         {
-            string data = m_store.CustomData;
-            if (string.IsNullOrEmpty(data)) return;
+            var blocks = new List<IMyTerminalBlock>();
+            var system = MyAPIGateway.TerminalActionsHelper.GetTerminalSystemForGrid(m_grid);
+            if (system == null) return;
 
-            // Simple format: PriceMul:1.2
-            if (data.Contains("PriceMul:"))
+            system.GetBlocks(blocks);
+            foreach (var b in blocks)
             {
-                string mulStr = data.Substring(data.IndexOf("PriceMul:") + 8).Trim();
-                float.TryParse(mulStr, out m_priceMultiplier);
-                ModCommunication.Log("[DEBUG mamba] Parsed PriceMul: " + m_priceMultiplier + " from CustomData");
-            }
-        }
-
-        private void ScanAndUpdateOffers()
-        {
-            // Implementation of Cargo4Store scan logic
-            // This part is optional placeholder
-        }
-
-        public override void OnAddedToScene()
-        {
-            base.OnAddedToScene();
-
-            var interactive = Entity as IMyStoreBlock;
-            if (interactive != null)
-            {
-                interactive.Use += OnUse;
-            }
-        }
-
-        private void OnUse(IMyEntity entity, IMyPlayer player)
-        {
-            if (m_store != null)
-            {
-                Gui.StoreBlockAdminFGuiHelper.Open(m_store);
+                if (b.CustomName != null && b.CustomName.Contains("Cargo4Store"))
+                    ModCommunication.Log("[DEBUG mamba] Found Cargo4Store: " + b.CustomName);
             }
         }
     }
