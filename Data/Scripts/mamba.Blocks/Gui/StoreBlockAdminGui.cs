@@ -1,49 +1,80 @@
-// Full path: mamba.Blocks/Data/Scripts/mamba.Blocks/Gui/StoreBlockAdminGui.cs
+// Full path: mamba.Blocks/Data/Scripts/mamba.Blocks/Gui/StoreBlockAdminFGui.cs
 using Sandbox.ModAPI;
-using Sandbox.ModAPI.Interfaces.Terminal;
 using VRage.Game.ModAPI;
 using VRage.Utils;
-using System;
+using VRage.ModAPI;
+using VRage.Game;
+using VRage.Game.Components;
+using VRage.Game.ObjectBuilders.Definitions;
+using System.Collections.Generic;
+using VRageMath;
+using VRage.Game.GUI.TextBox;
+using Sandbox.Graphics.GUI;
 
 namespace mamba.Blocks.Gui
 {
-    public static class StoreBlockAdminGui
+    public static class StoreBlockAdminFGui
     {
-        private static bool m_initialized = false;
-
-        public static void Init()
+        public static void Open(IMyTerminalBlock block)
         {
-            if (m_initialized) return;
+            if (block == null) return;
 
-            try
-            {
-                AddTerminalButton("Buy Items (Cargo4Store)", "Mamba_BuyTab", b => ModCommunication.Log("[DEBUG mamba] Buy tab clicked"));
-                AddTerminalButton("Sell Items", "Mamba_SellTab", b => ModCommunication.Log("[DEBUG mamba] Sell tab clicked"));
-                AddTerminalButton("Sell Grids", "Mamba_SellGridsTab", b => ModCommunication.Log("[DEBUG mamba] Sell Grids clicked"));
-                AddTerminalButton("Buy Grids (in dev)", "Mamba_BuyGridsTab", b =>
-                {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Buy Grids is under development.");
-                });
-                AddTerminalButton("Administration", "Mamba_AdminTab", b => ModCommunication.Log("[DEBUG mamba] Admin tab clicked"));
+            // Check if block is our custom StoreBlockAdmin
+            if (block.BlockDefinition.SubtypeId != "StoreBlockAdmin") return;
 
-                m_initialized = true;
-                ModCommunication.Log("[DEBUG mamba] Terminal GUI initialized.");
-            }
-            catch (Exception e)
-            {
-                ModCommunication.Log("[ERROR mamba] GUI init failed: " + e.Message);
-            }
+            // Open a custom GUI window
+            var screen = new StoreBlockAdminFGUIScreen(block);
+            MyAPIGateway.Gui.ShowScreen(screen);
         }
 
-        private static void AddTerminalButton(string title, string id, Action<IMyTerminalBlock> action)
+        private static void UpdateBuyTab(IMyTerminalBlock block)
         {
-            var button = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyTerminalBlock>(id);
-            button.Title = MyStringId.GetOrCompute(title);
-            button.Tooltip = MyStringId.GetOrCompute(title);
-            button.Enabled = b => b != null && b.IsFunctional;
-            button.Visible = b => b != null && b.BlockDefinition.ToString().Contains("StoreBlockAdmin");
-            button.Action = action;
-            MyAPIGateway.TerminalControls.AddControl<IMyTerminalBlock>(button);
+            ModCommunication.Log("[DEBUG mamba] Buy tab updated (Cargo4Store) for " + (block.CustomName ?? "Unnamed"));
+        }
+
+        private static void ShowAdminTab(IMyTerminalBlock block)
+        {
+            ModCommunication.Log("[DEBUG mamba] Administration tab with default prices for " + (block.CustomName ?? "Unnamed"));
+        }
+    }
+
+    // Custom GUI Screen
+    internal class StoreBlockAdminFGUIScreen : MyGuiScreenBase
+    {
+        private IMyTerminalBlock m_block;
+
+        public StoreBlockAdminFGUIScreen(IMyTerminalBlock block) : base()
+        {
+            m_block = block;
+            CanBeHidden = true;
+            CanHaveFocus = true;
+            Enabled = true;
+            UseOpacity = true;
+        }
+
+        public override void LoadContent()
+        {
+            base.LoadContent();
+
+            // Create simple label
+            var caption = new MyGuiControlLabel(new Vector2(0, -0.3f), null, "Store Block Admin Interface");
+            Controls.Add(caption);
+
+            var infoLabel = new MyGuiControlLabel(new Vector2(0, -0.1f), null, $"Block: {m_block.CustomName}");
+            Controls.Add(infoLabel);
+
+            var buyButton = new MyGuiControlButton(new Vector2(0, 0.1f), MyGuiControlButtonStyleEnum.Default, text: new StringBuilder("Buy Tab"));
+            buyButton.ButtonClicked += (b) => MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Buy Tab Selected!");
+            Controls.Add(buyButton);
+
+            var sellButton = new MyGuiControlButton(new Vector2(0, 0.3f), MyGuiControlButtonStyleEnum.Default, text: new StringBuilder("Sell Tab"));
+            sellButton.ButtonClicked += (b) => MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Sell Tab Selected!");
+            Controls.Add(sellButton);
+        }
+
+        public override string GetFriendlyName()
+        {
+            return "StoreBlockAdminFGUIScreen";
         }
     }
 }
