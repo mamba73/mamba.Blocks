@@ -10,8 +10,11 @@ namespace mamba.Blocks.Gui
 {
     public static class SimpleGuiTest
     {
-        private const string SELL_BUTTON_ID = "Mamba_TestSellGrid";
-        private const string BUY_BUTTON_ID = "Mamba_TestBuyGrid";
+        private const string BUY_BUTTON_ID = "Mamba_BuyTab";
+        private const string SELL_BUTTON_ID = "Mamba_SellTab";
+        private const string SELL_GRIDS_BUTTON_ID = "Mamba_SellGridsTab";
+        private const string BUY_GRIDS_BUTTON_ID = "Mamba_BuyGridsTab";
+        private const string ADMIN_BUTTON_ID = "Mamba_AdminTab";
 
         private static bool m_initialized = false;
 
@@ -21,50 +24,55 @@ namespace mamba.Blocks.Gui
 
             try
             {
-                // Gumb: Sell Your Grid
-                var sellButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(SELL_BUTTON_ID);
-                sellButton.Title = MyStringId.GetOrCompute("Sell Your Grid");
-                sellButton.Tooltip = MyStringId.GetOrCompute("Sell your grids - test");
-                sellButton.Visible = block =>
+                AddTerminalButton("Buy", BUY_BUTTON_ID, block =>
                 {
-                    if (block == null) return false;
-                    return block.BlockDefinition.TypeId.ToString() == "MyObjectBuilder_StoreBlock" &&
-                           block.BlockDefinition.SubtypeId.ToString() == "StoreBlockAdmin";
-                };
-                sellButton.Action = block =>
-                {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Sell Your Grid clicked!");
-                    ModCommunication.Log("[DEBUG mamba] Sell clicked on: " + (block.CustomName ?? block.DisplayNameText));
-                };
-                sellButton.Enabled = block => block != null && block.IsFunctional;
-                MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(sellButton);
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Buy Tab Selected!");
+                });
 
-                // Gumb: Buy Grid
-                var buyButton = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyStoreBlock>(BUY_BUTTON_ID);
-                buyButton.Title = MyStringId.GetOrCompute("Buy Grid");
-                buyButton.Tooltip = MyStringId.GetOrCompute("Buy grids - test");
-                buyButton.Visible = block =>
+                AddTerminalButton("Sell", SELL_BUTTON_ID, block =>
                 {
-                    if (block == null) return false;
-                    return block.BlockDefinition.TypeId.ToString() == "MyObjectBuilder_StoreBlock" &&
-                           block.BlockDefinition.SubtypeId.ToString() == "StoreBlockAdmin";
-                };
-                buyButton.Action = block =>
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Sell Tab Selected!");
+                });
+
+                AddTerminalButton("Sell Grids", SELL_GRIDS_BUTTON_ID, block =>
                 {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Buy Grid clicked!");
-                    ModCommunication.Log("[DEBUG mamba] Buy clicked on: " + (block.CustomName ?? block.DisplayNameText));
-                };
-                buyButton.Enabled = block => block != null && block.IsFunctional;
-                MyAPIGateway.TerminalControls.AddControl<IMyStoreBlock>(buyButton);
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Sell Grids Tab Selected!");
+                });
+
+                AddTerminalButton("Buy Grids (in dev)", BUY_GRIDS_BUTTON_ID, block =>
+                {
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Buy Grids is under development.");
+                });
+
+                AddTerminalButton("Administration", ADMIN_BUTTON_ID, block =>
+                {
+                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Administration Tab Selected!");
+                });
 
                 m_initialized = true;
-                ModCommunication.Log("[DEBUG mamba] SimpleGuiTest initialized - buttons added to K tab");
+                ModCommunication.Log("[DEBUG mamba] SimpleGuiTest initialized - 5 buttons added to K tab");
             }
             catch (Exception e)
             {
                 ModCommunication.Log("[DEBUG mamba] GUI init failed: " + e.Message, "ERROR");
                 MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "GUI ERROR: " + e.Message);
             }
+        }
+
+        private static void AddTerminalButton(string title, string id, Action<IMyTerminalBlock> action)
+        {
+            var button = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyTerminalBlock>(id);
+            button.Title = MyStringId.GetOrCompute(title);
+            button.Tooltip = MyStringId.GetOrCompute(title);
+            button.Visible = block =>
+            {
+                if (block == null) return false;
+                return block.BlockDefinition.TypeId.ToString() == "MyObjectBuilder_StoreBlock" &&
+                       block.BlockDefinition.SubtypeId.ToString() == "StoreBlockAdmin";
+            };
+            button.Action = action;
+            button.Enabled = block => block != null && block.IsFunctional;
+            MyAPIGateway.TerminalControls.AddControl<IMyTerminalBlock>(button);
         }
     }
 }
