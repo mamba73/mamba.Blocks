@@ -63,7 +63,7 @@
             <DisplayName>Mamba Blocks</DisplayName>
             <Name>Mamba Blocks</Name>
             <ItemIds>
-                <string>StoreBlock/StoreBlockAdmin</string>
+                <string>TerminalBlock/StoreBlockAdmin</string>
             </ItemIds>
         </Category>        
     </CategoryClasses>
