@@ -1,16 +1,18 @@
-// Full path: mamba.Blocks/Data/Scripts/mamba.Blocks/Components/MambaStoreBlockLogic.cs
+using System;
 using Sandbox.Common.ObjectBuilders;
 using Sandbox.ModAPI;
 using VRage.Game.Components;
-using VRage.Game.ModAPI;
 using VRage.ModAPI;
-using VRage.Utils;
 using VRage.ObjectBuilders;
-using mamba.Blocks.Gui;
-using VRage.Game;
-using Sandbox.Game; // Added this for MyControlsSpace
+using VRage.Game.ModAPI;
+using VRageMath;
+using Sandbox.Game.Entities;
+using Sandbox.Graphics.GUI;
+using VRage.Utils;
+using Sandbox.Game; // Dodano za MyVisualScriptLogicProvider
+using Sandbox.Game.EntityComponents;
 
-namespace mamba.Blocks.Components
+namespace Mamba.Blocks.Components
 {
     [MyEntityComponentDescriptor(typeof(MyObjectBuilder_TerminalBlock), false, "StoreBlockAdmin")]
     public class MambaStoreBlockLogic : MyGameLogicComponent
@@ -21,30 +23,30 @@ namespace mamba.Blocks.Components
         {
             base.Init(objectBuilder);
             _block = Entity as IMyTerminalBlock;
-            
-            // Interaction requires frequent updates
-            NeedsUpdate |= MyEntityUpdateEnum.EACH_FRAME;
+
+            NeedsUpdate |= MyEntityUpdateEnum.BEFORE_NEXT_FRAME | MyEntityUpdateEnum.EACH_10TH_FRAME;
         }
 
-        public override void UpdateBeforeSimulation()
+        public override void UpdateOnceBeforeFrame()
         {
-            if (_block == null || MyAPIGateway.Utilities.IsDedicated) return;
+            if (_block == null) return;
 
-            // MyControlsSpace.USE now recognized via Sandbox.Game
-            if (MyAPIGateway.Input.IsNewGameControlPressed(MyControlsSpace.USE))
+            // Popravljeno: SetEmissiveParts je najpouzdanija metoda
+            _block.SetEmissiveParts("StoreScreen_01", Color.Cyan, 1.0f);
+            _block.SetEmissiveParts("StoreScreen_02", Color.White, 1.0f);
+        }
+
+        public override void UpdateBeforeSimulation10()
+        {
+            if (MyAPIGateway.Gui.GetCurrentScreen == MyTerminalPageEnum.None)
             {
                 if (IsPlayerLookingAtBlock())
                 {
-                    var player = MyAPIGateway.Session.Player;
-                    var relation = _block.GetUserRelationToOwner(player.IdentityId);
-                    
-                    if (relation == MyRelationsBetweenPlayerAndBlock.Owner || MyAPIGateway.Session.IsUserAdmin(player.SteamUserId))
+                    MyAPIGateway.Utilities.ShowNotification("Press [F] to open Admin Menu", 160, MyFontEnum.White);
+
+                    if (MyAPIGateway.Input.IsNewGameControlPressed(MyStringId.GetOrCompute("USE")))
                     {
-                        SimpleGuiTest.OpenScreen(_block.CustomName ?? _block.DisplayNameText);
-                    }
-                    else
-                    {
-                        MyAPIGateway.Utilities.ShowNotification("Access Denied: Not the owner!", 2000, "Red");
+                        OpenMyCustomPopup();
                     }
                 }
             }
@@ -52,20 +54,39 @@ namespace mamba.Blocks.Components
 
         private bool IsPlayerLookingAtBlock()
         {
-            var player = MyAPIGateway.Session?.Player;
+            var player = MyAPIGateway.Session.Player;
             if (player?.Character == null) return false;
 
-            IHitInfo hit;
-            var headMatrix = player.Character.GetHeadMatrix(true);
-            var start = headMatrix.Translation;
-            var end = start + headMatrix.Forward * 2.5f;
+            double distSq = Vector3D.DistanceSquared(player.GetPosition(), _block.WorldMatrix.Translation);
+            if (distSq > 16) return false; 
 
-            if (MyAPIGateway.Physics.CastRay(start, end, out hit))
+            // Popravljeno: GetHeadMatrix zahtijeva 4 bool parametra u ModAPI-ju
+            // (includeY, includeX, forceHeadAnim, dummy)
+            MatrixD headMatrix = player.Character.GetHeadMatrix(true, true, false, false);
+            Vector3D headPos = headMatrix.Translation;
+            Vector3D forward = headMatrix.Forward;
+            
+            LineD ray = new LineD(headPos, headPos + forward * 4);
+            
+            IHitInfo hit;
+            if (MyAPIGateway.Physics.CastRay(ray.From, ray.To, out hit))
             {
-                var hitEntity = hit.HitEntity as IMyTerminalBlock;
-                return hitEntity != null && hitEntity.EntityId == _block.EntityId;
+                // Provjeravamo je li pogođen entitet naš blok ili netko od njegovih subpartova
+                return hit.HitEntity == _block || hit.HitEntity.Parent == _block;
             }
+
             return false;
+        }
+
+        private void OpenMyCustomPopup()
+        {
+            // Ovdje ide tvoja klasa ekrana
+            MyAPIGateway.Utilities.ShowNotification("Otvaram Admin Sučelje...", 2000, MyFontEnum.Green);
+        }
+
+        public override void Close()
+        {
+            _block = null;
         }
     }
 }
