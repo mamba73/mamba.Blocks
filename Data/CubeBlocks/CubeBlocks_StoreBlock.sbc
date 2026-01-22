@@ -7,7 +7,7 @@
 
         <Definition xsi:type="MyObjectBuilder_StoreBlockDefinition">
             <Id>
-                <TypeId>StoreBlock</TypeId>
+                <TypeId>TerminalBlock</TypeId>
                 <SubtypeId>StoreBlockAdmin</SubtypeId>
             </Id>
             <DisplayName>Store Admin</DisplayName>

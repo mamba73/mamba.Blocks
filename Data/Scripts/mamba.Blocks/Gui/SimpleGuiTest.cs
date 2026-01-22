@@ -1,78 +1,45 @@
-// File: mamba.Blocks/Data/Scripts/mamba.Blocks/Gui/SimpleGuiTest.cs
+// Full path: mamba.Blocks/Data/Scripts/mamba.Blocks/Gui/SimpleGuiTest.cs
+using System;
 using Sandbox.ModAPI;
 using Sandbox.ModAPI.Interfaces.Terminal;
-using VRage.Game.ModAPI;
-using VRage.Game;
 using VRage.Utils;
-using System;
+using VRage.Game;
 
 namespace mamba.Blocks.Gui
 {
     public static class SimpleGuiTest
     {
-        private const string BUY_BUTTON_ID = "Mamba_BuyTab";
-        private const string SELL_BUTTON_ID = "Mamba_SellTab";
-        private const string SELL_GRIDS_BUTTON_ID = "Mamba_SellGridsTab";
-        private const string BUY_GRIDS_BUTTON_ID = "Mamba_BuyGridsTab";
-        private const string ADMIN_BUTTON_ID = "Mamba_AdminTab";
-
         private static bool m_initialized = false;
 
         public static void Init()
         {
             if (m_initialized) return;
 
-            try
-            {
-                AddTerminalButton("Buy", BUY_BUTTON_ID, block =>
-                {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Buy Tab Selected!");
-                });
+            var adminBtn = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyTerminalBlock>("Mamba_AdminOpen");
+            adminBtn.Title = MyStringId.GetOrCompute("Open Admin Store");
+            adminBtn.Tooltip = MyStringId.GetOrCompute("Opens the Mamba Store Interface");
+            adminBtn.Action = block => OpenScreen(block.CustomName ?? block.DisplayNameText);
+            
+            adminBtn.Visible = block => block.BlockDefinition.SubtypeId == "StoreBlockAdmin";
+            
+            MyAPIGateway.TerminalControls.AddControl<IMyTerminalBlock>(adminBtn);
 
-                AddTerminalButton("Sell", SELL_BUTTON_ID, block =>
-                {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Sell Tab Selected!");
-                });
-
-                AddTerminalButton("Sell Grids", SELL_GRIDS_BUTTON_ID, block =>
-                {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Sell Grids Tab Selected!");
-                });
-
-                AddTerminalButton("Buy Grids (in dev)", BUY_GRIDS_BUTTON_ID, block =>
-                {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Buy Grids is under development.");
-                });
-
-                AddTerminalButton("Administration", ADMIN_BUTTON_ID, block =>
-                {
-                    MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "Administration Tab Selected!");
-                });
-
-                m_initialized = true;
-                ModCommunication.Log("[DEBUG mamba] SimpleGuiTest initialized - 5 buttons added to K tab");
-            }
-            catch (Exception e)
-            {
-                ModCommunication.Log("[DEBUG mamba] GUI init failed: " + e.Message, "ERROR");
-                MyAPIGateway.Utilities?.ShowMessage("mamba.Blocks", "GUI ERROR: " + e.Message);
-            }
+            m_initialized = true;
         }
 
-        private static void AddTerminalButton(string title, string id, Action<IMyTerminalBlock> action)
+        public static void OpenScreen(string blockName)
         {
-            var button = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlButton, IMyTerminalBlock>(id);
-            button.Title = MyStringId.GetOrCompute(title);
-            button.Tooltip = MyStringId.GetOrCompute(title);
-            button.Visible = block =>
-            {
-                if (block == null) return false;
-                return block.BlockDefinition.TypeId.ToString() == "MyObjectBuilder_StoreBlock" &&
-                       block.BlockDefinition.SubtypeId.ToString() == "StoreBlockAdmin";
-            };
-            button.Action = action;
-            button.Enabled = block => block != null && block.IsFunctional;
-            MyAPIGateway.TerminalControls.AddControl<IMyTerminalBlock>(button);
+            // Fixed call without named parameters to avoid API mismatch
+            MyAPIGateway.Utilities.ShowMissionScreen(
+                "MAMBA ADMIN STORE",
+                blockName,
+                "INTERFACE LOG:",
+                "Access granted.\nAdmin mode active.\n\nUse Terminal [K] for specific Buy/Sell actions.",
+                null,
+                "CLOSE"
+            );
         }
+
+        public static void Unload() => m_initialized = false;
     }
 }

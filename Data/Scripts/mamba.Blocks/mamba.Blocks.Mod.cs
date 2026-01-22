@@ -2,18 +2,16 @@
 using System;
 using Sandbox.ModAPI;
 using VRage.Game.Components;
-using VRage.Utils;
+using mamba.Blocks.Gui;
 
 namespace mamba.Blocks
 {
     public static class ModCommunication
     {
         public const string MOD_NAME = "mamba.Blocks";
-
         public static void Log(string message, string prefix = "INFO")
         {
-            string fullMsg = MOD_NAME + " [" + prefix + "] " + message;
-            VRage.Utils.MyLog.Default.WriteLineAndConsole(fullMsg);
+            VRage.Utils.MyLog.Default.WriteLineAndConsole($"{MOD_NAME} [{prefix}] {message}");
         }
     }
 
@@ -22,35 +20,26 @@ namespace mamba.Blocks
     {
         private bool m_isInitialized = false;
 
-        public override void LoadData()
+        public override void BeforeStart()
         {
-            base.LoadData();
-
-            if (m_isInitialized || MyAPIGateway.Session == null)
-                return;
-
-            try
+            if (m_isInitialized || MyAPIGateway.Session == null) return;
+            
+            try 
             {
-                if (MyAPIGateway.Utilities != null)
-                    MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Mod is starting to load...");
-
-                ModCommunication.Log("Mod is starting to load...");
-
-                // Gui.StoreBlockAdminGui.Init();
-                Gui.SimpleGuiTest.Init();
-
-                if (MyAPIGateway.Utilities != null)
-                    MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "Mod loaded SUCCESSFULLY!");
-
-                ModCommunication.Log("Mod loaded SUCCESSFULLY!");
+                SimpleGuiTest.Init(); // Register terminal controls
+                ModCommunication.Log("Session initialized.");
                 m_isInitialized = true;
             }
             catch (Exception e)
             {
-                ModCommunication.Log("Mod load FAILED: " + e.Message + " | Stack: " + e.StackTrace, "ERROR");
-                if (MyAPIGateway.Utilities != null)
-                    MyAPIGateway.Utilities.ShowMessage("mamba.Blocks", "ERROR: " + e.Message);
+                ModCommunication.Log($"Initialization failed: {e.Message}", "ERROR");
             }
+        }
+
+        protected override void UnloadData()
+        {
+            SimpleGuiTest.Unload();
+            m_isInitialized = false;
         }
     }
 }

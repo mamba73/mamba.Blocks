@@ -1,14 +1,18 @@
 // Full path: mamba.Blocks/Data/Scripts/mamba.Blocks/Components/MambaStoreBlockLogic.cs
+using Sandbox.Common.ObjectBuilders;
 using Sandbox.ModAPI;
-using Sandbox.ModAPI.Interfaces;
-using Sandbox.Game.Entities;
 using VRage.Game.Components;
 using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRage.Utils;
+using VRage.ObjectBuilders;
+using mamba.Blocks.Gui;
+using VRage.Game;
+using Sandbox.Game; // Added this for MyControlsSpace
 
 namespace mamba.Blocks.Components
 {
+    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_TerminalBlock), false, "StoreBlockAdmin")]
     public class MambaStoreBlockLogic : MyGameLogicComponent
     {
         private IMyTerminalBlock _block;
@@ -17,24 +21,51 @@ namespace mamba.Blocks.Components
         {
             base.Init(objectBuilder);
             _block = Entity as IMyTerminalBlock;
-            if (_block == null) return;
-
-            NeedsUpdate |= MyEntityUpdateEnum.EACH_10TH_FRAME;
+            
+            // Interaction requires frequent updates
+            NeedsUpdate |= MyEntityUpdateEnum.EACH_FRAME;
         }
 
         public override void UpdateBeforeSimulation()
         {
-            base.UpdateBeforeSimulation();
-            if (_block == null) return;
+            if (_block == null || MyAPIGateway.Utilities.IsDedicated) return;
 
-            // Check if any player is interacting (Use / F)
-            var slim = _block.CubeGrid.GetCubeBlock(_block.Position);
-            if (slim == null) return;
+            // MyControlsSpace.USE now recognized via Sandbox.Game
+            if (MyAPIGateway.Input.IsNewGameControlPressed(MyControlsSpace.USE))
+            {
+                if (IsPlayerLookingAtBlock())
+                {
+                    var player = MyAPIGateway.Session.Player;
+                    var relation = _block.GetUserRelationToOwner(player.IdentityId);
+                    
+                    if (relation == MyRelationsBetweenPlayerAndBlock.Owner || MyAPIGateway.Session.IsUserAdmin(player.SteamUserId))
+                    {
+                        SimpleGuiTest.OpenScreen(_block.CustomName ?? _block.DisplayNameText);
+                    }
+                    else
+                    {
+                        MyAPIGateway.Utilities.ShowNotification("Access Denied: Not the owner!", 2000, "Red");
+                    }
+                }
+            }
+        }
 
-            // Example: trigger GUI open manually via server call or other detection
-            // Here placeholder, in practice use terminal action / custom use
-            // if (player presses F and is in range and block subtype = StoreBlockAdmin)
-            //     mamba.Blocks.Gui.StoreBlockAdminFGui.Open(_block);
+        private bool IsPlayerLookingAtBlock()
+        {
+            var player = MyAPIGateway.Session?.Player;
+            if (player?.Character == null) return false;
+
+            IHitInfo hit;
+            var headMatrix = player.Character.GetHeadMatrix(true);
+            var start = headMatrix.Translation;
+            var end = start + headMatrix.Forward * 2.5f;
+
+            if (MyAPIGateway.Physics.CastRay(start, end, out hit))
+            {
+                var hitEntity = hit.HitEntity as IMyTerminalBlock;
+                return hitEntity != null && hitEntity.EntityId == _block.EntityId;
+            }
+            return false;
         }
     }
 }
